@@ -24,35 +24,39 @@ const table=tableSelect.value;
 
 const obj={price,dish,table}
 
-axios.post("https://crudcrud.com/api/dc30801e2a0d4df4bd5017e6e3a8a653/restaurantData",obj)
+if(price===""|| dish==="select"|| table==="select"){
+
+        msg.innerHTML="Please enter all Feilds!"
+        
+        setTimeout(()=>{
+            msg.remove()
+            
+        },3000)
+        
+    }
+    else{
+
+axios.post("https://crudcrud.com/api/eb90324b8dd94084b9291f3935552e99/restaurantdata",obj)
 .then((response)=>{
     console.log(response)
     let id;
 
-    if(response.data.price===""|| response.data.dish==="select"|| response.data.table==="select"){
-
-        msg.innerHTML="Please enter all Feilds!"
-        setTimeout(()=>{
-            msg.remove()
-        },3000)
-
-    }else
-    {
+    
         const li=document.createElement('li')
         li.setAttribute('id',response.data._id)
         id=response.data._id
 
         li.appendChild(document.createTextNode(`${response.data.price}Rs-${response.data.dish}-${response.data.table}`))
 
-        if(response.data.table.value==="Table 1")
+        if(response.data.table==="Table 1")
         {
             table1.appendChild(li)
         }
-        if(response.data.table.value==="Table 2")
+        if(response.data.table==="Table 2")
         {
             table2.appendChild(li)
         }
-        if(response.data.table.value==="Table 3")
+        if(response.data.table==="Table 3")
         {
             table3.appendChild(li)
         }
@@ -62,15 +66,17 @@ axios.post("https://crudcrud.com/api/dc30801e2a0d4df4bd5017e6e3a8a653/restaurant
     deletebtn.appendChild(document.createTextNode('delete'));
     li.appendChild(deletebtn)
 
-    }
+    })
+}
     //console.log(id)
 
 
 
     
-})
-
 }
+ 
+
+// }
 
 
 function removeitem(e){
@@ -85,7 +91,7 @@ if(e.target.classList.contains('delete'))
         li.remove();
         //console.log(id)
 
-        axios.delete(`https://crudcrud.com/api/dc30801e2a0d4df4bd5017e6e3a8a653/restaurantData/${id}`)
+        axios.delete(`https://crudcrud.com/api/eb90324b8dd94084b9291f3935552e99/restaurantdata/${id}`)
             .then((response) => {
                 console.log(response);
 
@@ -101,7 +107,7 @@ if(e.target.classList.contains('delete'))
 }
 
  window.addEventListener('DOMContentLoaded', () => {
-      axios.get("https://crudcrud.com/api/dc30801e2a0d4df4bd5017e6e3a8a653/restaurantData")
+      axios.get("https://crudcrud.com/api/eb90324b8dd94084b9291f3935552e99/restaurantdata")
           .then((response) => {
             // console.log(response);
               let id;           
